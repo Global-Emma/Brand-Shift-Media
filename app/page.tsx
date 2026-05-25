@@ -22,7 +22,7 @@ import {
   MessageSquare,
   Menu,
   X,
-  Star,
+  // Star,
 } from "lucide-react";
 
 // --- Types & Interfaces ---
@@ -681,7 +681,7 @@ export default function BrandShiftMediaHome() {
       </motion.section>
 
       {/* --- 6. TESTIMONIALS SECTION --- */}
-      <motion.section
+      {/* <motion.section
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -731,7 +731,7 @@ export default function BrandShiftMediaHome() {
             </div>
           ))}
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* --- 7. PROCESS SECTION --- */}
       <motion.section
