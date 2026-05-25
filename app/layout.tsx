@@ -16,12 +16,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.brandshiftmedia.com"),
   title: "Brand Shift Media",
   description:
-    "Delivering Cutting-Edged Digital Marketing Solutions for Unmatched Brand Growth",
+    "Delivering Cutting-Edge Digital Marketing Solutions for Unmatched Brand Growth",
   generator: "Brand Shift Media",
   applicationName: "Brand Shift Media",
-  verification: {
-    google: "",
-  },
   keywords: [
     "brand shift media",
     "BSM",
@@ -46,10 +43,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Brand Shift Media",
     description:
-      "Delivering Cutting-Edged Digital Marketing Solutions for Unmatched Brand Growth",
+      "Delivering Cutting-Edge Digital Marketing Solutions for Unmatched Brand Growth",
     url: "https://www.brandshiftmedia.com",
     siteName: "Brand Shift Media",
-    images: "/images/logo.png",
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Brand Shift Media Logo Container Banner",
+      }
+    ],
     locale: "en_NG",
     type: "website",
   },
@@ -57,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Brand Shift Media",
     description:
-      "Delivering Cutting-Edged Digital Marketing Solutions for Unmatched Brand Growth",
+      "Delivering Cutting-Edge Digital Marketing Solutions for Unmatched Brand Growth",
     images: ["/images/logo.png"],
   },
   icons: {
@@ -89,32 +93,28 @@ export default function RootLayout({
     "@type": "Organization",
     name: "Brand Shift Media",
     url: "https://www.brandshiftmedia.com",
-    logo: "https://www.brandshiftmedia.com/logo.png",
+    logo: "https://www.brandshiftmedia.com/images/logo.png", // Fixed path to match icon layout above
     description:
-      "Delivering Cutting-Edged Digital Marketing Solutions for Unmatched Brand Growth",
-    founder: [
-      {
-        "@type": "Person",
-        name: "",
-        jobTitle: "Founder",
-      },
-    ],
+      "Delivering Cutting-Edge Digital Marketing Solutions for Unmatched Brand Growth",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Ikeja",
       addressCountry: "NG",
     },
   };
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
