@@ -24,6 +24,8 @@ import {
   X,
   // Star,
 } from "lucide-react";
+import Marquee from "@/components/marquee";
+import TypewriterPhrases from "@/components/typewriterPhrases";
 
 // --- Types & Interfaces ---
 interface Service {
@@ -476,9 +478,15 @@ export default function BrandShiftMediaHome() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-7xl md:text-8xl font-black tracking-tighter text-white mb-6 leading-[0.95]"
           >
-            We Build Brands That <br className="hidden sm:inline" />
-            <span className="bg-linear-to-r from-white via-red-500 to-amber-500 bg-clip-text text-transparent inline-block hover:scale-[1.02] transition-transform duration-500 cursor-default">
-              Command Attention
+            We Build Brands That <br className="sm:inline" />
+            <span className="bg-linear-to-r from-white via-red-500 to-amber-500 bg-clip-text text-transparent inline-flex text-center items-center justify-center min-h-[1.1em] hover:scale-[1.02] transition-transform duration-500 cursor-default relative">
+              <TypewriterPhrases />
+              {/* Animated Typing Blinking Cursor */}
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                className="inline-block ml-1 w-2 h-10 sm:h-16 md:h-20 bg-amber-500 align-middle self-center"
+              />
             </span>
           </motion.h1>
 
@@ -586,6 +594,8 @@ export default function BrandShiftMediaHome() {
         </div>
       </motion.section>
 
+      <Marquee />
+
       {/* --- 3. SERVICES SECTION --- */}
       <motion.section
         variants={containerVariants}
@@ -647,8 +657,19 @@ export default function BrandShiftMediaHome() {
       </motion.section>
 
       {/* --- 4. PORTFOLIO SHOWCASE --- */}
-      <section id="portfolio" className="py-32 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, margin: "-50px" }}
+        transition={{ delay: 1 * 0.05, duration: 0.5 }}
+        whileHover={{ y: -6 }}
+        id="portfolio"
+        className="py-32 overflow-hidden bg-black relative"
+      >
+        {/* Ambient background glow focusing the marquee */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-red-600/5 blur-[120px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-4">
             <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest block">
               Our Selected Work Portfolio
@@ -660,7 +681,7 @@ export default function BrandShiftMediaHome() {
 
           {/* Filtering Navigation Container */}
           <div
-            className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none border-b border-white/5 md:border-none"
+            className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none border-b border-white/5 md:border-none relative z-20"
             style={{ scrollbarWidth: "none" }}
           >
             {portfolioCategories.map((category) => (
@@ -679,31 +700,24 @@ export default function BrandShiftMediaHome() {
           </div>
         </div>
 
-        {/* Case Studies Grid Layout */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.1 }}
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredPortfolio.map((item) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.5 }}
-                key={item.title}
-                className="bg-white/1 border border-white/5 rounded-2xl overflow-hidden group hover:border-white/20 transition-all duration-500 flex flex-col justify-between"
+        {/* --- Infinite Marquee Track Wrappers --- */}
+        <div className="flex overflow-hidden select-none group hover-pause border-y border-white/5 py-4 bg-zinc-950/30 relative z-10">
+          {/* Track 1 */}
+          <div className="flex shrink-0 items-stretch gap-8 min-w-full animate-marquee pr-8">
+            {[
+              ...filteredPortfolio,
+              ...filteredPortfolio,
+              ...filteredPortfolio,
+            ].map((item, idx) => (
+              <div
+                key={`track1-${item.title}-${idx}`}
+                className="w-[320px] sm:w-100 bg-white/1 border border-white/5 rounded-2xl overflow-hidden group/card hover:border-amber-500/30 hover:bg-white/3 transition-all duration-500 flex flex-col justify-between shrink-0"
               >
                 <div className="relative aspect-4/3 w-full overflow-hidden bg-zinc-950">
                   <Image
                     src={item.image}
                     alt={`Case representation for ${item.title}`}
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 opacity-70 group-hover:opacity-100"
+                    className="object-cover w-full h-full transform group-hover/card:scale-105 transition-transform duration-700 opacity-70 group-hover/card:opacity-100"
                     width={400}
                     height={300}
                     loading="lazy"
@@ -715,7 +729,7 @@ export default function BrandShiftMediaHome() {
                     <span className="text-[9px] font-bold tracking-widest uppercase text-red-500 block mb-1">
                       {item.category}
                     </span>
-                    <h3 className="text-base font-bold text-white tracking-tight group-hover:text-amber-500 transition-colors">
+                    <h3 className="text-base font-bold text-white tracking-tight group-hover/card:text-amber-500 transition-colors">
                       {item.title}
                     </h3>
                   </div>
@@ -736,11 +750,11 @@ export default function BrandShiftMediaHome() {
                     </motion.div>
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
-        </motion.div>
-      </section>
+          </div>
+        </div>
+      </motion.section>
 
       {/* --- 5. WHY CHOOSE US SECTION --- */}
       <motion.section
@@ -798,6 +812,8 @@ export default function BrandShiftMediaHome() {
           </div>
         </div>
       </motion.section>
+
+      <Marquee />
 
       {/* --- 6. TESTIMONIALS SECTION --- */}
       {/* Testimonials section remained fully commented as per the source parameters rule */}
