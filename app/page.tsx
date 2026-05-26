@@ -73,8 +73,8 @@ export default function BrandShiftMediaHome() {
     "About",
     "Services",
     "Portfolio",
-    "Why Us",
-    "Process",
+    // "Why Us",
+    // "Process",
     "Contact",
   ];
 
@@ -291,57 +291,121 @@ export default function BrandShiftMediaHome() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0B] text-white selection:bg-red-600 selection:text-white font-sans antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-[#000000] text-white selection:bg-red-600 selection:text-white font-sans antialiased overflow-x-hidden relative">
+      {/* --- Dynamic Cinematic Background Canvas --- */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Floating Red Abstract Light Vector */}
+        <motion.div
+          animate={{
+            y: [0, -60, 0],
+            x: [0, 40, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -top-40 -left-40 w-150 h-150 bg-red-600/10 rounded-full blur-[150px]"
+        />
+        {/* Floating Gold Abstract Light Vector */}
+        <motion.div
+          animate={{
+            y: [0, 80, 0],
+            x: [0, -50, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute bottom-20 -right-20 w-125 h-125 bg-amber-500/5 rounded-full blur-[130px]"
+        />
+        {/* Fine Matrix Background Grid Lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-size:40px_40px" />
+      </div>
+
       {/* --- Sticky Transparent Navigation Bar --- */}
-      <header className="fixed top-0 z-50 w-full backdrop-blur-md bg-[#0A0A0B]/80 border-b border-white/5 transition-all">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-20">
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="fixed top-0 z-50 w-full backdrop-blur-xl bg-[#000000]/70 border-b border-white/5 transition-all duration-300 hover:border-white/10"
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-20">
           <Link
             href="/"
-            className="flex items-center gap-2 group focus:outline-none rounded-lg"
+            className="flex items-center gap-2 group focus:outline-none rounded-lg relative overflow-hidden"
           >
-            <Image
-              src="/images/logo.png"
-              alt="brandshift logo"
-              width={120}
-              height={120}
-              loading="eager"
-            />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            >
+              <Image
+                src="/images/logo2.png"
+                alt="brandshift_logo"
+                width={250}
+                height={250}
+                loading="eager"
+                sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1024px) 176px, 192px"
+                className="w-28 sm:w-36 md:w-44 lg:w-48 h-auto transition-all duration-300 group-hover:brightness-110"
+              />
+            </motion.div>
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((item) => (
-              <Link
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            {navLinks.map((item, idx) => (
+              <motion.div
                 key={item}
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                className="text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-red-500 decoration-2 underline-offset-4 transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-red-500 rounded px-2 py-1"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
-                {item}
-              </Link>
+                <Link
+                  href={`#${item.toLowerCase().replace(" ", "-")}`}
+                  className="text-xs font-semibold uppercase tracking-widest text-gray-400 hover:text-white transition-all duration-300 relative py-2 group/link focus:outline-none focus:text-white"
+                >
+                  {item}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover/link:w-full" />
+                  <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover/link:w-1/2" />
+                </Link>
+              </motion.div>
             ))}
           </nav>
 
           {/* Desktop CTA */}
-          <button className="hidden md:flex items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="hidden md:flex items-center"
+          >
             <Link
               href="#contact"
-              className="bg-red-600 text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-full hover:bg-red-700 transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-red-500/50"
+              className="relative group px-5 py-2.5 lg:px-6 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest overflow-hidden border border-white/10 transition-all duration-300"
             >
-              Start Your Project
+              <span className="absolute inset-0 w-full h-full bg-linear-to-r from-red-600 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
+              <span className="absolute inset-0 w-full h-full bg-white opacity-100 group-hover:opacity-0 transition-opacity duration-500 z-0" />
+              <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+                Start Your Project
+              </span>
             </Link>
-          </button>
+          </motion.div>
 
           {/* Mobile Menu Button Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 rounded"
+            className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-1 focus:ring-red-500 rounded-full border border-transparent hover:border-white/10 transition-colors"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
+              <X className="w-6 h-6 text-white" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="w-6 h-6 text-gray-300" />
             )}
           </button>
         </div>
@@ -350,67 +414,79 @@ export default function BrandShiftMediaHome() {
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="absolute top-20 left-0 w-full bg-[#0A0A0B] border-b border-white/10 p-6 flex flex-col gap-4 md:hidden z-40"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="absolute top-20 left-0 w-full bg-[#000000] border-b border-white/10 px-6 py-8 flex flex-col gap-2 md:hidden z-40 backdrop-blur-2xl overflow-hidden"
             >
-              {navLinks.map((item) => (
-                <Link
+              {navLinks.map((item, idx) => (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.05 }}
                   key={item}
-                  href={`#${item.toLowerCase().replace(" ", "-")}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-medium text-gray-200 block py-2 border-b border-white/5 focus:outline-none focus:ring-2 focus:ring-red-500 rounded hover:text-red-500 hover:border-red-500/40 transition-all duration-500"
                 >
-                  {item}
-                </Link>
+                  <Link
+                    key={item}
+                    href={`#${item.toLowerCase().replace(" ", "-")}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-xs font-bold uppercase tracking-widest text-gray-300 block py-3.5 border-b border-white/5 focus:outline-none focus:text-red-500 hover:text-red-500 hover:pl-4 transition-all duration-300"
+                  >
+                    {item}
+                  </Link>
+                </motion.div>
               ))}
-              <Link
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="bg-red-600 text-white text-center font-semibold py-3.5 rounded-xl mt-2 block"
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+                className="pt-4"
               >
-                Start Your Project
-              </Link>
+                <Link
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="bg-white text-black text-center text-xs font-bold uppercase tracking-widest py-4 rounded-xl block hover:bg-red-600 hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                >
+                  Start Your Project
+                </Link>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </motion.header>
 
       {/* --- 1. HERO SECTION --- */}
       <section className="relative mt-20 min-h-[calc(100vh-5rem)] flex items-center justify-center px-6 overflow-hidden pt-12 md:pt-0">
-        {/* Soft Radial Ambient Lighting Base Layer */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-75 sm:w-150 h-75 sm:h-150 bg-red-600/10 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
+        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
           >
-            <span className="inline-block border border-red-500/30 text-red-400 bg-red-950/20 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6">
+            <span className="inline-block border border-white/10 text-white bg-white/5 backdrop-blur-md px-5 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 relative group overflow-hidden">
+              <span className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-amber-400 to-transparent animate-pulse" />
               Bringing Your Brand To Life
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1]"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl sm:text-7xl md:text-8xl font-black tracking-tighter text-white mb-6 leading-[0.95]"
           >
             We Build Brands That <br className="hidden sm:inline" />
-            <span className="bg-linear-to-r from-red-500 via-red-600 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white via-red-500 to-amber-500 bg-clip-text text-transparent inline-block hover:scale-[1.02] transition-transform duration-500 cursor-default">
               Command Attention
             </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-sm sm:text-lg text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed font-normal"
           >
             Brand Shift Media helps businesses grow through creative branding,
             graphics design, full-scale web development, digital marketing,
@@ -422,26 +498,32 @@ export default function BrandShiftMediaHome() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto pt-4"
           >
             <Link
               href="#contact"
-              className="w-full sm:w-48 bg-red-600 text-white font-bold px-8 py-4 rounded-full hover:bg-red-700 transition-all duration-500 hover:scale-105 flex items-center justify-center gap-2 shadow-lg shadow-red-600/20 group focus:outline-none focus:ring-4 focus:ring-red-500/50"
+              className="w-full sm:w-52 bg-red-600 text-white font-bold text-xs uppercase tracking-widest px-8 py-5 rounded-full hover:bg-white hover:text-black transition-all duration-500 flex items-center justify-center gap-2 shadow-xl shadow-red-600/10 group focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               <span>Book Studio</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
             </Link>
             <Link
               href="#portfolio"
-              className="w-full sm:w-48 bg-transparent text-white border-2 border-white/20 font-bold px-8 py-4 rounded-full hover:bg-white hover:text-[#0A0A0B] hover:border-white transition-all duration-500 hover:scale-105 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-white/50"
+              className="w-full sm:w-52 bg-transparent text-white border border-white/10 font-bold text-xs uppercase tracking-widest px-8 py-5 rounded-full hover:bg-white/5 hover:border-white transition-all duration-500 flex items-center justify-center focus:outline-none relative overflow-hidden group"
             >
+              <span className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-500 to-transparent" />
               View Work
             </Link>
           </motion.div>
         </div>
 
         {/* Bottom Horizontal Animated Border Line */}
-        <div className="absolute bottom-0 left-0 w-full h-1px bg-linear-to-r from-transparent via-white/10 to-transparent" />
+        <motion.div
+          initial={{ width: "0%" }}
+          whileInView={{ width: "100%" }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute bottom-0 left-0 h-px bg-linear-to-r from-transparent via-white/20 to-transparent"
+        />
       </section>
 
       {/* --- 2. ABOUT SECTION --- */}
@@ -449,20 +531,25 @@ export default function BrandShiftMediaHome() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.1 }}
         layout
         id="about"
-        className="py-24 px-6 max-w-7xl mx-auto border-b border-white/5"
+        className="py-32 px-6 max-w-7xl mx-auto border-b border-white/5 relative"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-6">
-            <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <motion.div
+            className="lg:col-span-7 space-y-6"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest block">
               About Brand Shift Media
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tight text-white leading-[1.05]">
               Bridging Cutting-Edge Creativity & Predictable Digital Solutions.
             </h2>
-            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+            <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl">
               Based natively in Lagos, Nigeria, we step outside traditional
               agency architecture to create innovative digital solutions. We
               redefine how your customers interact with your products by
@@ -470,22 +557,30 @@ export default function BrandShiftMediaHome() {
               high-impact printing, brand visibility, and strategic advertising
               into your daily framework.
             </p>
-          </div>
+          </motion.div>
 
           {/* Interactive Metric Counter Display Group */}
           <div className="lg:col-span-5 grid grid-cols-2 gap-4">
             {counters.map((counter, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="bg-white/2 border border-white/5 rounded-2xl p-6 flex flex-col justify-center items-start"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{
+                  scale: 1.03,
+                  borderColor: "rgba(234, 179, 8, 0.2)",
+                }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="bg-white/2 border border-white/5 backdrop-blur-md rounded-2xl p-6 flex flex-col justify-center items-start transition-all duration-300 relative group"
               >
-                <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight block mb-1">
+                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-red-500 transition-colors" />
+                <span className="text-4xl sm:text-5xl font-black text-white tracking-tighter block mb-1">
                   {counter.value}
                 </span>
-                <span className="text-xs text-gray-400 font-medium tracking-wide uppercase">
+                <span className="text-[10px] text-gray-400 font-bold tracking-widest uppercase">
                   {counter.label}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -496,22 +591,22 @@ export default function BrandShiftMediaHome() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.1 }}
         layout
         id="services"
-        className="py-24 px-6 bg-[#0E0E10] relative"
+        className="py-32 px-6 bg-[#030303] relative overflow-hidden"
       >
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom,rgba(220,38,38,0.03),transparent_50%)] pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom,rgba(220,38,38,0.05),transparent_50%)] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
+          <div className="text-center max-w-2xl mx-auto mb-24 space-y-4">
+            <span className="text-amber-500 text-[10px] font-bold uppercase tracking-widest block">
               Our Services
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tight text-white">
               Our Branding Ecosystem
             </h2>
-            <p className="text-gray-400 text-sm sm:text-base">
+            <p className="text-gray-400 text-xs sm:text-sm max-w-lg mx-auto">
               Modern business requirements demand tailored digital strategies
               and specialized branding solutions. Here is how we transform your
               visibility.
@@ -524,26 +619,26 @@ export default function BrandShiftMediaHome() {
               const IconComp = service.icon;
               return (
                 <motion.div
-                  whileHover={{ y: -6 }}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -10 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
                   viewport={{ once: true }}
                   key={index}
-                  className="bg-white/1 border border-white/5 rounded-2xl p-8 hover:border-red-500/40 hover:bg-white/2 transition-all group flex flex-col justify-between"
+                  className="bg-white/1 border border-white/5 rounded-2xl p-8 hover:border-red-500/30 hover:bg-white/3 transition-all duration-500 group flex flex-col justify-between relative overflow-hidden"
                 >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-br from-white/2 to-transparent pointer-events-none rounded-bl-full group-hover:from-amber-500/3 transition-all" />
                   <div>
-                    <div className="w-12 h-12 bg-red-950/40 border border-red-500/20 text-red-500 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                      <IconComp className="w-5 h-5" strokeWidth={2} />
+                    <div className="w-12 h-12 bg-white/5 border border-white/10 text-white rounded-xl flex items-center justify-center mb-8 group-hover:bg-red-600 group-hover:border-red-600 group-hover:text-white transition-all duration-300 group-hover:rotate-6">
+                      <IconComp className="w-5 h-5" strokeWidth={1.5} />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3 tracking-tight">
+                    <h3 className="text-lg font-bold text-white mb-3 tracking-tight group-hover:text-amber-500 transition-colors">
                       {service.name}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
                       {service.description}
                     </p>
                   </div>
-                  {/* <div className="flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-red-400 transition-colors cursor-pointer">
-                    <span>Learn Capabilities</span>
-                    <ChevronRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
-                  </div> */}
                 </motion.div>
               );
             })}
@@ -552,30 +647,30 @@ export default function BrandShiftMediaHome() {
       </motion.section>
 
       {/* --- 4. PORTFOLIO SHOWCASE --- */}
-      <section id="portfolio" className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <section id="portfolio" className="py-32 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div className="space-y-4">
-            <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
+            <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest block">
               Our Selected Work Portfolio
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tight text-white">
               Visual Case Implementations
             </h2>
           </div>
 
           {/* Filtering Navigation Container */}
           <div
-            className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none"
+            className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none border-b border-white/5 md:border-none"
             style={{ scrollbarWidth: "none" }}
           >
             {portfolioCategories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`text-xs font-semibold px-5 py-2.5 cursor-pointer rounded-full border whitespace-nowrap transition-all focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                className={`text-[10px] font-bold uppercase tracking-widest px-6 py-3 cursor-pointer rounded-full border whitespace-nowrap transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-amber-500 ${
                   activeCategory === category
-                    ? "bg-red-600 text-white border-red-600"
-                    : "bg-transparent text-gray-400 border-white/10 hover:border-white/30 hover:text-white"
+                    ? "bg-white text-black border-white shadow-lg"
+                    : "bg-transparent text-gray-400 border-white/5 hover:border-white/20 hover:text-white"
                 }`}
               >
                 {category}
@@ -589,43 +684,56 @@ export default function BrandShiftMediaHome() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.1 }}
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
             {filteredPortfolio.map((item) => (
               <motion.div
                 layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.5 }}
                 key={item.title}
-                className="bg-white/1 border border-white/5 rounded-2xl overflow-hidden group hover:border-white/10 transition-colors"
+                className="bg-white/1 border border-white/5 rounded-2xl overflow-hidden group hover:border-white/20 transition-all duration-500 flex flex-col justify-between"
               >
-                <div className="relative aspect-4/3 w-full overflow-hidden bg-zinc-900">
+                <div className="relative aspect-4/3 w-full overflow-hidden bg-zinc-950">
                   <Image
                     src={item.image}
                     alt={`Case representation for ${item.title}`}
-                    className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-500 opacity-80"
+                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 opacity-70 group-hover:opacity-100"
                     width={400}
                     height={300}
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent opacity-80" />
                 </div>
-                <div className="p-6 flex items-center justify-between gap-4">
+                <div className="p-6 flex items-center justify-between gap-4 border-t border-white/5 bg-black/40 backdrop-blur-md">
                   <div>
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-red-400 block mb-1">
+                    <span className="text-[9px] font-bold tracking-widest uppercase text-red-500 block mb-1">
                       {item.category}
                     </span>
-                    <h3 className="text-lg font-bold text-white tracking-tight">
+                    <h3 className="text-base font-bold text-white tracking-tight group-hover:text-amber-500 transition-colors">
                       {item.title}
                     </h3>
                   </div>
-                  <Link href="#" target="_blank" className="flex items-center">
-                    <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/5 text-white group-hover:bg-red-600 group-hover:border-red-600 transition-all shrink-0">
+                  <Link
+                    href="#"
+                    target="_blank"
+                    className="flex items-center focus:outline-none"
+                  >
+                    <motion.div
+                      whileHover={{
+                        scale: 1.1,
+                        backgroundColor: "#ffffff",
+                        color: "#000000",
+                      }}
+                      className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/10 text-white transition-all shrink-0"
+                    >
                       <ArrowUpRight className="w-4 h-4" />
-                    </div>
+                    </motion.div>
                   </Link>
                 </div>
               </motion.div>
@@ -639,133 +747,100 @@ export default function BrandShiftMediaHome() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.1 }}
         layout
         id="why-us"
-        className="py-24 px-6 bg-[#0E0E10] border-t border-b border-white/5"
+        className="py-32 px-6 bg-[#030303] border-t border-b border-white/5 relative"
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 space-y-6">
-            <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <motion.div
+            className="lg:col-span-5 space-y-6"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-amber-500 text-[10px] font-bold uppercase tracking-widest block">
               Why Shift With Us
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tight text-white leading-[1.05]">
               Engineered to Dominate Market Performance Metrics.
             </h2>
-            <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+            <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
               We eliminate design guessing. Every branding vector from
               high-fidelity layouts down to advertising targets adheres strictly
               to core performance logic, high device visibility, and
               accessibility execution standards.
             </p>
-          </div>
+          </motion.div>
+
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {whyChooseUs.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white/1 border border-white/5 p-6 rounded-2xl space-y-3"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white/1 border border-white/5 hover:border-white/10 p-6 rounded-2xl space-y-4 transition-all duration-300 relative group"
               >
-                <div className="w-8 h-8 bg-red-600/10 text-red-500 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-white/5 text-white border border-white/10 rounded-lg flex items-center justify-center group-hover:text-red-500 group-hover:border-red-500/30 transition-colors">
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
-                <h3 className="text-lg font-bold text-white tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
+                <div className="space-y-1">
+                  <h3 className="text-base font-bold text-white tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
 
       {/* --- 6. TESTIMONIALS SECTION --- */}
-      {/* <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-        layout
-        className="py-24 px-6 max-w-7xl mx-auto"
-      >
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
-            Client Feedback
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
-            Validated Scale Performance
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((item) => (
-            <div
-              key={item}
-              className="bg-white/1 backdrop-blur-md border border-white/5 p-8 rounded-2xl flex flex-col justify-between"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center gap-1 text-amber-500">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-300 text-sm leading-relaxed italic">
-                  &ldquo;Brand Shift Media entirely rebuilt our digital pipeline
-                  infrastructure. Within three business quarters post-launch,
-                  our digital conversion ratios scaling out of organic networks
-                  surged exponentially.&rdquo;
-                </p>
-              </div>
-              <div className="flex items-center gap-3 mt-8 pt-4 border-t border-white/5">
-                <div className="w-10 h-10 bg-zinc-800 rounded-full shrink-0 object-cover" />
-                <div>
-                  <h4 className="text-sm font-bold text-white">
-                    Executive Director
-                  </h4>
-                  <p className="text-[11px] text-gray-400">
-                    Enterprise Solutions Group
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.section> */}
+      {/* Testimonials section remained fully commented as per the source parameters rule */}
 
       {/* --- 7. PROCESS SECTION --- */}
       <motion.section
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.1 }}
         layout
         id="process"
-        className="py-24 px-6 bg-[#0E0E10] border-t border-b border-white/5"
+        className="py-32 px-6 bg-[#000000] border-b border-white/5"
       >
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-20 space-y-4">
-            <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
+          <div className="text-center max-w-2xl mx-auto mb-24 space-y-4">
+            <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest block">
               Workflow Blueprint
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tight text-white">
               How We Shift Production
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative">
             {workflow.map((step, idx) => (
-              <div key={idx} className="space-y-4 relative group">
-                <div className="text-4xl font-black text-white/5 group-hover:text-red-500/20 transition-colors tracking-tight font-mono">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="space-y-4 relative group"
+              >
+                <div className="text-5xl font-black text-white/5 group-hover:text-amber-500/20 transition-colors tracking-tighter font-mono border-b border-white/5 pb-2">
                   {step.step}
                 </div>
-                <h3 className="text-xl font-bold text-white tracking-tight">
+                <h3 className="text-lg font-bold text-white tracking-tight group-hover:text-red-500 transition-colors">
                   {step.title}
                 </h3>
                 <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                   {step.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -776,36 +851,50 @@ export default function BrandShiftMediaHome() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.1 }}
         layout
-        className="py-24 px-6 max-w-5xl mx-auto text-center relative overflow-hidden"
+        className="py-32 px-6 max-w-5xl mx-auto text-center relative overflow-hidden"
       >
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-100 bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 space-y-8">
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-3xl sm:text-6xl md:text-7xl font-black tracking-tighter text-white max-w-3xl mx-auto leading-none"
+          >
             Ready to Shift Your Brand to the{" "}
-            <span className="text-red-500">Next Level?</span>
-          </h2>
-          <p className="text-gray-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <span className="text-red-500 block sm:inline">Next Level?</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-gray-400 text-xs sm:text-base max-w-xl mx-auto leading-relaxed"
+          >
             Let&apos;s Give Your Brand a strong creative presence, positioning
             and distribution strategy with our cutting-edge approach. Establish
             systemic presence now.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+          >
             <a
               href="#contact"
-              className="w-full sm:w-48 bg-white text-[#0A0A0B] font-bold px-8 py-4 rounded-full hover:bg-gray-200 transition-colors flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-white/50"
+              className="w-full sm:w-52 bg-white text-black font-bold text-xs uppercase tracking-widest px-8 py-5 rounded-full hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               Book Strategy Session
             </a>
             <a
               href="mailto:thebrandshiftmedia@gmail.com"
-              className="w-full sm:w-48 bg-transparent text-white border border-white/20 font-bold px-8 py-4 rounded-full hover:bg-white/5 transition-colors flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-white/20"
+              className="w-full sm:w-52 bg-transparent text-white border border-white/10 font-bold text-xs uppercase tracking-widest px-8 py-5 rounded-full hover:bg-white/5 hover:border-white transition-colors duration-300 flex items-center justify-center focus:outline-none"
             >
               Direct Mail Setup
             </a>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -814,28 +903,30 @@ export default function BrandShiftMediaHome() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.1 }}
         layout
         id="contact"
-        className="py-24 px-6 bg-[#0E0E10] border-t border-white/5"
+        className="py-32 px-6 bg-[#030303] border-t border-white/5"
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Information Column */}
-          <div className="lg:col-span-5 space-y-8">
+          <div className="lg:col-span-5 space-y-12">
             <div className="space-y-4">
-              <span className="text-red-500 text-xs font-bold uppercase tracking-widest block">
+              <span className="text-amber-500 text-[10px] font-bold uppercase tracking-widest block">
                 Contact Us
               </span>
-              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+              <h2 className="text-3xl sm:text-6xl font-black tracking-tight text-white leading-none">
                 Let&apos;s Launch Something Real.
               </h2>
             </div>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+            <div className="space-y-8">
+              <div className="flex items-start gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-500 group-hover:bg-white group-hover:text-black transition-all duration-300 shrink-0">
+                  <MapPin className="w-4 h-4" />
+                </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-white">
                     HQ Studio Address
                   </h4>
                   <p className="text-sm text-gray-400 mt-1">
@@ -844,74 +935,81 @@ export default function BrandShiftMediaHome() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <Phone className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+              <div className="flex items-start gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-500 group-hover:bg-white group-hover:text-black transition-all duration-300 shrink-0">
+                  <Phone className="w-4 h-4" />
+                </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-white">
                     Phone Integration
                   </h4>
                   <a
                     href="tel:+2348151798442"
-                    className="text-sm text-gray-400 hover:text-white transition-colors block mt-1"
+                    className="text-sm text-gray-400 hover:text-amber-500 transition-colors block mt-1"
                   >
                     +234 815 179 8442
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <Mail className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+              <div className="flex items-start gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-500 group-hover:bg-white group-hover:text-black transition-all duration-300 shrink-0">
+                  <Mail className="w-4 h-4" />
+                </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-white">
                     Secure Transmission Email
                   </h4>
                   <a
                     href="mailto:thebrandshiftmedia@gmail.com"
-                    className="text-sm text-gray-400 hover:text-white transition-colors block mt-1"
+                    className="text-sm text-gray-400 hover:text-amber-500 transition-colors block mt-1"
                   >
                     thebrandshiftmedia@gmail.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <Clock className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+              <div className="flex items-start gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-500 group-hover:bg-white group-hover:text-black transition-all duration-300 shrink-0">
+                  <Clock className="w-4 h-4" />
+                </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-white">
                     Operational Framework Hours
                   </h4>
-                  <p className="text-sm text-gray-400 mt-1">
-                    Monday: 6:00 AM – 10:30 PM
-                  </p>
-                  <p className="text-sm text-gray-400">
-                    Tuesday – Sunday: 7:00 AM – 10:30 PM
-                  </p>
+                  <div className="text-sm text-gray-400 mt-1 space-y-0.5">
+                    <p>Monday: 6:00 AM – 10:30 PM</p>
+                    <p>Tuesday – Sunday: 7:00 AM – 10:30 PM</p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Premium Direct Messaging Channels Integration */}
             <div className="pt-4 flex flex-col sm:flex-row gap-3">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href="https://wa.me/2349023792627"
                 target="_blank"
                 rel="noreferrer"
-                className="bg-[#25D366] text-black font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-[#20ba59] transition-colors"
+                className="bg-[#25D366] text-black font-bold text-[10px] uppercase tracking-widest px-6 py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-white transition-colors duration-300 shadow-lg"
               >
                 <MessageSquare className="w-4 h-4 fill-current" />
                 <span>WhatsApp Sync Channel</span>
-              </a>
+              </motion.a>
             </div>
           </div>
 
           {/* Fully Styled Interactive Contact Form Column */}
-          <div className="lg:col-span-7 bg-white/1 border border-white/5 p-8 sm:p-10 rounded-2xl">
+          <div className="lg:col-span-7 bg-white/1 border border-white/5 p-8 sm:p-10 rounded-2xl relative overflow-hidden backdrop-blur-md">
+            <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label
                     htmlFor="name"
-                    className="text-xs font-semibold text-gray-300"
+                    className="text-[10px] font-bold uppercase tracking-widest text-gray-400"
                   >
                     Individual/Company Name *
                   </label>
@@ -923,13 +1021,13 @@ export default function BrandShiftMediaHome() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
+                    className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
                   <label
                     htmlFor="email"
-                    className="text-xs font-semibold text-gray-300"
+                    className="text-[10px] font-bold uppercase tracking-widest text-gray-400"
                   >
                     Secure Email Address *
                   </label>
@@ -941,7 +1039,7 @@ export default function BrandShiftMediaHome() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
+                    className="w-full border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all bg-black"
                   />
                 </div>
               </div>
@@ -949,22 +1047,22 @@ export default function BrandShiftMediaHome() {
               <div className="space-y-2">
                 <label
                   htmlFor="service"
-                  className="text-xs font-semibold text-gray-300"
+                  className="text-[10px] font-bold uppercase tracking-widest text-gray-400"
                 >
                   Select Service Required *
                 </label>
                 <select
                   id="service"
-                  className="w-full bg-[#121214] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
+                  className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all appearance-none"
                   value={formData.service}
                   onChange={(e) =>
                     setFormData({ ...formData, service: e.target.value })
                   }
                 >
                   <option>Branding & Creative Design Architecture</option>
-                  <option>Next.js Web Engineering Development</option>
+                  <option>Web Development and management</option>
                   <option>Targeted Distribution Digital Ads Campaigns</option>
-                  <option>Social Media Organic Network Optimization</option>
+                  <option>Social Media Management</option>
                   <option>Other Services</option>
                 </select>
               </div>
@@ -972,7 +1070,7 @@ export default function BrandShiftMediaHome() {
               <div className="space-y-2">
                 <label
                   htmlFor="message"
-                  className="text-xs font-semibold text-gray-300"
+                  className="text-[10px] font-bold uppercase tracking-widest text-gray-400"
                 >
                   Project Context Brief *
                 </label>
@@ -984,21 +1082,27 @@ export default function BrandShiftMediaHome() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all resize-none"
+                  className="w-full border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all resize-none bg-black"
                 />
               </div>
 
-              <button
+              <motion.button
+                whileHover={{
+                  scale: 1.01,
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                }}
+                whileTap={{ scale: 0.99 }}
                 type="submit"
-                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl text-sm uppercase tracking-wider cursor-pointer transition-colors shadow-lg shadow-red-600/10 focus:outline-none focus:ring-4 focus:ring-red-500/50"
+                className="w-full bg-red-600 text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 border border-transparent hover:border-white"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Transmitting..." : "Transmit Project Request"}
-              </button>
+              </motion.button>
 
               {formStatus && (
                 <p
-                  className={`text-xs font-medium text-center mt-4 ${formStatus.success ? "text-green-400" : "text-red-400"}`}
+                  className={`text-xs font-semibold text-center mt-4 ${formStatus.success ? "text-green-400" : "text-red-400"}`}
                 >
                   {formStatus.msg}
                 </p>
@@ -1010,7 +1114,7 @@ export default function BrandShiftMediaHome() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="text-xs text-green-400 font-medium text-center mt-4"
+                    className="text-xs text-green-400 font-semibold text-center mt-4"
                   >
                     ✓ Message sent successfully. Our Team will connect with you
                     in 12 operational hours.
@@ -1023,11 +1127,11 @@ export default function BrandShiftMediaHome() {
       </motion.section>
 
       {/* --- 10. PREMIUM ACCESSIBLE FOOTER --- */}
-      <footer className="bg-[#0A0A0B] border-t border-white/5 pt-16 pb-8 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <footer className="bg-[#000000] border-t border-white/5 pt-24 pb-12 px-6 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 relative z-10">
           {/* Agency Bio Block */}
           <div className="space-y-4">
-            <span className="text-lg font-bold tracking-tighter text-white">
+            <span className="text-xl font-black tracking-tighter text-white uppercase">
               BRAND SHIFT<span className="text-red-500">.</span>
             </span>
             <p className="text-gray-400 text-xs sm:text-sm leading-relaxed max-w-xs">
@@ -1039,15 +1143,15 @@ export default function BrandShiftMediaHome() {
 
           {/* Quick Architecture Navigation Links */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-white">
               Ecosystem Navigation
             </h4>
-            <nav className="flex flex-col gap-2.5">
+            <nav className="flex flex-col gap-3">
               {["Services", "Portfolio", "Why Us", "Process"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase().replace(" ", "-")}`}
-                  className="text-xs text-gray-400 hover:text-white transition-colors w-max"
+                  className="text-xs text-gray-400 hover:text-white hover:underline underline-offset-4 decoration-red-500 transition-colors w-max"
                 >
                   {item}
                 </a>
@@ -1057,28 +1161,36 @@ export default function BrandShiftMediaHome() {
 
           {/* Strategic Services Shortcut Column */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-white">
               Core Competencies
             </h4>
-            <ul className="flex flex-col gap-2.5 text-xs text-gray-400">
-              <li>Branding & Graphics Architecture</li>
-              <li>Bespoke Headless Development</li>
-              <li>High-ROI Performance Marketing</li>
-              <li>Luxury High-Fidelity Printing</li>
+            <ul className="flex flex-col gap-3 text-xs text-gray-400">
+              <li className="hover:text-white transition-colors">
+                Branding & Graphics Architecture
+              </li>
+              <li className="hover:text-white transition-colors">
+                Bespoke Headless Development
+              </li>
+              <li className="hover:text-white transition-colors">
+                High-ROI Performance Marketing
+              </li>
+              <li className="hover:text-white transition-colors">
+                Luxury High-Fidelity Printing
+              </li>
             </ul>
           </div>
 
           {/* Social Platform Synchronization Link Block */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-white">
               Sync Ecosystem Network
             </h4>
-            <div className="flex flex-col gap-2.5 text-xs text-gray-400">
+            <div className="flex flex-col gap-3 text-xs text-gray-400">
               <a
                 href="https://tiktok.com/@brandshiftmedia"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-white transition-colors"
+                className="hover:text-amber-500 transition-colors"
               >
                 TikTok: @brandshiftmedia
               </a>
@@ -1087,15 +1199,15 @@ export default function BrandShiftMediaHome() {
         </div>
 
         {/* Global Structural Copyright Row */}
-        <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-          <p className="text-[11px] text-gray-500 font-medium">
+        <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left relative z-10">
+          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-wider">
             © 2026 Brand Shift Media. All rights reserved globally.
           </p>
-          <div className="flex gap-6 text-[11px] text-gray-500">
-            <a href="#" className="hover:text-gray-300 transition-colors">
+          <div className="flex gap-6 text-[11px] text-gray-500 uppercase tracking-wider font-semibold">
+            <a href="#" className="hover:text-white transition-colors">
               System Privacy Policy
             </a>
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               Terms of Operations
             </a>
           </div>
